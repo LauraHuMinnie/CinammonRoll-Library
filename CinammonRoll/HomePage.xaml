@@ -1,0 +1,79 @@
+﻿<Page
+    x:Class="CinammonRoll.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CinammonRoll"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data ="using:CinammonRoll.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/background3.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <TextBlock x:Name="StatusMessage" Text="Status message" FontSize="20" Margin="15" Foreground="White"/>
+        <RelativePanel Margin="80">
+            <StackPanel x:Name="RedditPanel" Background="#E61a1a1a" Height="920" Width="850" Margin="0,0,20,0">
+                <TextBlock Text="Reddit" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
+                <ListView x:Name="RedditRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="800">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:Reddit">
+                            <StackPanel Background="#cc3bced9">
+                                <TextBlock Text="{x:Bind postTitle}" FontSize="20" Foreground="white" FontWeight="SemiBold" Margin="10,0,0,0" TextWrapping="WrapWholeWords"/>
+                                <Button x:Name="NyaaDownload" Content="View" Foreground="White" Background="#cc723ccf" Margin="10,20,0,0" Command="{Binding OpenThread}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="1"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+            <StackPanel x:Name="NyaaPanel" RelativePanel.RightOf="RedditPanel" Background="#E61a1a1a" Width="890" Height="450">
+                <TextBlock Text="Nyaa Torrents" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
+                <ListView x:Name="NyaaRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="355">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:NyaaTorrent">
+                            <StackPanel Background="#cc3bced9">
+                                <TextBlock Text="{x:Bind torrentName}" FontSize="20" Foreground="white" FontWeight="SemiBold" Margin="10,0,0,0"/>
+                                <TextBlock Text="{x:Bind date}" FontSize="18" Foreground="White" FontWeight="Normal" Margin="10,10,0,0"/>
+                                <Button x:Name="NyaaDownload" Content="Download" Foreground="White" Background="#cc723ccf" Margin="10,20,0,0" Command="{Binding DownloadTorrent}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="1"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+            <StackPanel x:Name="HorribleSubsPanel" RelativePanel.RightOf="RedditPanel" RelativePanel.Below="NyaaPanel" Background="#E61a1a1a" Margin="0,20,0,0" Width="890" Height="450">
+                <TextBlock Text="HorribleSubs" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
+                <ListView x:Name="HorribleRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="315">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:HorribleTorrent">
+                            <StackPanel Background="#cc3bced9">
+                                <TextBlock Text="{x:Bind torrentName}" FontSize="20" Foreground="white" FontWeight="SemiBold" Margin="0,0,0,0"/>
+                                <TextBlock Text="{x:Bind date}" FontSize="18" Foreground="White" FontWeight="Normal" Margin="10,10,0,0"/>
+                                <Button x:Name="NyaaDownload" Content="Download" Foreground="White" Background="#cc723ccf" Margin="10,20,0,0" Command="{Binding DownloadTorrent}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="1"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+        </RelativePanel>
+    </Grid>
+</Page>

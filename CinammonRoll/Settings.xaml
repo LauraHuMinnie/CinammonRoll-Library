@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="CinammonRoll.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CinammonRoll"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:CinammonRoll.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel>
+        <TextBlock Text="Anime Library Directories" FontSize="30" Margin="20,20,0,0"/>
+        <ListView x:Name="DirectoryList" Margin="20,10,20,10" SelectionMode="Multiple" VerticalAlignment="Top" Height="800">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Library">
+                    <StackPanel Background="#424242">
+                        <TextBlock Text="{x:Bind directory}" FontSize="20" Foreground="white" FontWeight="SemiBold" Margin="10,0,0,0" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="1"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Margin="20,10,0,0">
+            <Button Content="Add directory" FontSize="18" Click="AddDirButton_Click"/>
+            <Button Content="Remove selected" FontSize="18" Margin="20,0,0,0" Click="RemoveDirButton_Click"/>
+            <TextBlock x:Name="StatusMessage" Text="Status message" FontSize="16" Margin="20,15,0,0"/>
+            <ProgressRing x:Name="ProgressRing" Margin="20,0,0,0" Height="50" Width="50"/>
+        </StackPanel>
+    </StackPanel>
+</Page>
