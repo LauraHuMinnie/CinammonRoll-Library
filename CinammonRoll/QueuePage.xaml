@@ -22,7 +22,7 @@
         </Canvas>-->
         <ListView x:Name="SeriesQueue"  Width="960" Canvas.Left="10" Canvas.Top="40" Margin="0,100,830,60">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:Series">
+                <DataTemplate x:DataType="data:SeriesQueue">
                     <Canvas Width="960" Height="230">
                         <Image Source="{x:Bind panel}" Width="960" Height="230" Stretch="UniformToFill"/>
                         <TextBlock Canvas.Left="45" Canvas.Top="160" FontSize="35" FontWeight="ExtraBold" Text="{x:Bind title}" Foreground="White"/>

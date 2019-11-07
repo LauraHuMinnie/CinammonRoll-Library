@@ -76,19 +76,28 @@ namespace CinammonRoll
         private void All_Click(object sender, RoutedEventArgs e)
         {
             HeaderText.Text = "All";
-            AnimeGrid.ItemsSource = App.lib[0].collectSeries();
+            if (App.lib.Count > 0)
+            {
+                AnimeGrid.ItemsSource = App.lib[0].collectSeries();
+            }
         }
 
         private void Completed_Click(object sender, RoutedEventArgs e)
         {
             HeaderText.Text = "Completed";
-            AnimeGrid.ItemsSource = App.lib[0].GetSeries(SeriesState.Complete);
+            if(App.lib.Count > 0)
+            {
+                AnimeGrid.ItemsSource = App.lib[0].GetSeries(SeriesState.Complete);
+            }
         }
 
         private void Planning_Click(object sender, RoutedEventArgs e)
         {
             HeaderText.Text = "Planning";
-            AnimeGrid.ItemsSource = App.lib[0].GetSeries(SeriesState.Incomplete);
+            if (App.lib.Count > 0)
+            {
+                AnimeGrid.ItemsSource = App.lib[0].GetSeries(SeriesState.Incomplete);
+            }
         }
 
         private void HeaderText_SelectionChanged(object sender, RoutedEventArgs e)
@@ -99,7 +108,8 @@ namespace CinammonRoll
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Series s = (Series)e.ClickedItem;
-            Frame.Navigate(typeof(DetailsPage), s);
+            SeriesDetails sd = s.getSeriesDetails();
+            Frame.Navigate(typeof(DetailsPage), sd);
         }
 
         private void AnimeSearch_TextChange(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

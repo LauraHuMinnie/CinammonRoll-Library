@@ -24,14 +24,14 @@ namespace CinammonRoll
     public sealed partial class QueuePage : Page
     {
         //public List<Anime> animes;
-        private List<Series> animes;
+        private List<SeriesQueue> animes;
         public QueuePage()
         {
             this.InitializeComponent();
             //this.animes = AnimeManager.GetQueue();
             if(App.lib.Count > 0)
             {
-                this.animes = App.lib[0].GetSeries(SeriesState.Watching);
+                this.animes = App.lib[0].GetSeriesQueue(SeriesState.Watching);
                 SeriesQueue.ItemsSource = this.animes;
             }
         }

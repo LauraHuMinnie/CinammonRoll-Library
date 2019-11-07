@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CinammonRoll.Models;
+using System.Threading.Tasks;
 
 namespace CinammonRoll
 {
@@ -98,6 +99,26 @@ namespace CinammonRoll
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private static void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            // Occurs when an exception is not handled on the UI thread.
+
+
+            // if you want to suppress and handle it manually, 
+            // otherwise app shuts down.
+            e.Handled = true;
+        }
+
+        private static void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            // Occurs when an exception is not handled on a background thread.
+            // ie. A task is fired and forgotten Task.Run(() => {...})
+
+
+            // suppress and handle it manually.
+            e.SetObserved();
         }
     }
 }

@@ -42,6 +42,21 @@ namespace CinammonRoll.Models
             }
         }
 
+        public List<SeriesQueue> GetSeriesQueue(List<Series> list, SeriesState targetState)
+        {
+            List<SeriesQueue> result = new List<SeriesQueue>();
+            foreach (Series s in list)
+            {
+                SeriesState state = s.watchState;
+                if (state == targetState)
+                {
+                    SeriesQueue sq = s.getSeriesWatching();
+                    result.Add(sq);
+                }
+            }
+            return result;
+        }
+
         public List<Series> GetSeriesList(List<Series> list, SeriesState targetState)
         {
             List<Series> result = new List<Series>();
@@ -53,7 +68,6 @@ namespace CinammonRoll.Models
                     result.Add(s);
                 }
             }
-
             return result;
         }
     }

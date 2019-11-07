@@ -41,13 +41,13 @@ namespace CinammonRoll
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Series s = (Series)e.Parameter;
-            this.selectedSeries = s;
+            SeriesDetails s = (SeriesDetails)e.Parameter;
+            this.selectedSeries = s.getSeries();
             AnimeTitle.Text = s.getTitle();
             AnimePoster.Source = s.poster;
             DetailsBackground.ImageSource = s.panel;
             EpisodeList.ItemsSource = new List<Episode>(s.getEpisodes());
-            SetWatchStatusPanel(s.watchState);
+            SetWatchStatusPanel(s.seriesWatchState);
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)

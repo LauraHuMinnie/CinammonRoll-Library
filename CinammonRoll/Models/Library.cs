@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Data;
+using System.Collections;
+using Windows.Foundation;
 
 namespace CinammonRoll.Models
 {
@@ -32,6 +36,7 @@ namespace CinammonRoll.Models
         {
             if (!this.getSubDone)
             {
+                // TODO: Optimize this section to prevent file loading only after loading details page.
                 this.series.Clear();
                 IReadOnlyList<StorageFolder> folders = await this.libraryDir.GetFoldersAsync();
                 foreach (StorageFolder folder in folders)
@@ -123,6 +128,12 @@ namespace CinammonRoll.Models
         public List<Series> GetSeries(SeriesState targetState)
         {
             List<Series> result = this.watchData.GetSeriesList(this.series, targetState);
+            return result;
+        }
+
+        public List<SeriesQueue> GetSeriesQueue(SeriesState targetState)
+        {
+            List<SeriesQueue> result = this.watchData.GetSeriesQueue(this.series, targetState);
             return result;
         }
 
@@ -279,9 +290,10 @@ namespace CinammonRoll.Models
         public void setPosterFile(StorageFile f)
         {
             this.posterFile = f;
-            setPoster();
+            //setPoster();
             setListPoster();
         }
+        
 
         public StorageFile getPosterFile()
         {
@@ -291,7 +303,8 @@ namespace CinammonRoll.Models
         public void setPanelFile(StorageFile f)
         {
             this.panelFile = f;
-            setPanel();
+            // TODO: Find another way to load panel images more efficiently without loading into ram.
+            //setPanel();
         }
 
         public StorageFile getPanelFile()
@@ -380,6 +393,165 @@ namespace CinammonRoll.Models
         {
             await FileIO.WriteTextAsync(f, watched + "\n" + ((int)state).ToString());
             return new EpisodeData(watched, state, f);
+        }
+
+        public SeriesDetails getSeriesDetails()
+        {
+            return new SeriesDetails(this, this.getTitle(), this.watchState, getPosterFile(), getPanelFile(), getEpisodes());
+        }
+
+        public SeriesQueue getSeriesWatching()
+        {
+            return new SeriesQueue(getTitle(), getPanelFile());
+        }
+    }
+
+    public class SeriesList : IList, INotifyCollectionChanged, ISupportIncrementalLoading
+    {
+        #region IList methods
+        public object this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public bool IsFixedSize => throw new NotImplementedException();
+
+        public bool IsReadOnly => throw new NotImplementedException();
+
+        public int Count => throw new NotImplementedException();
+
+        public bool IsSynchronized => throw new NotImplementedException();
+
+        public object SyncRoot => throw new NotImplementedException();
+
+        public int Add(object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int IndexOf(object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region INotifyCollectionChanged methods
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        #endregion
+
+        #region ISupportIncrementalLoading methods
+        public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasMoreItems => throw new NotImplementedException();
+        #endregion
+    }
+
+    public class SeriesDetails
+    {
+        public BitmapImage poster;
+        public BitmapImage panel;
+        public string seriesTitle;
+        public List<Episode> seriesEpisodes;
+        public SeriesState seriesWatchState;
+        public Series s;
+
+        public SeriesDetails(Series s, string title, SeriesState watchState, StorageFile posterFile, StorageFile panelFile, List<Episode> episodes)
+        {
+            this.s = s;
+            this.seriesTitle = title;
+            this.seriesWatchState = watchState;
+            this.setPoster(posterFile);
+            this.setPanel(panelFile);
+            this.seriesEpisodes = episodes;
+        }
+
+        public Series getSeries()
+        {
+            return this.s;
+        }
+
+        private async void setPoster(StorageFile posterFile)
+        {
+            this.poster = new BitmapImage();
+            using (var stream = await posterFile.OpenReadAsync())
+            {
+                await this.poster.SetSourceAsync(stream);
+            }
+        }
+
+        private async void setPanel(StorageFile panelFile)
+        {
+            this.panel = new BitmapImage();
+            using (var stream = await panelFile.OpenReadAsync())
+            {
+                await this.panel.SetSourceAsync(stream);
+            }
+        }
+
+        public List<Episode> getEpisodes()
+        {
+            return this.seriesEpisodes;
+        }
+
+        public string getTitle()
+        {
+            return this.seriesTitle;
+        }
+        
+    }
+
+    public class SeriesQueue
+    {
+        public BitmapImage panel;
+        public string title;
+        public SeriesQueue(string title, StorageFile panelFile)
+        {
+            this.title = title;
+            this.setPanel(panelFile);
+        }
+
+        private async void setPanel(StorageFile panelFile)
+        {
+            this.panel = new BitmapImage();
+            using (var stream = await panelFile.OpenReadAsync())
+            {
+                await this.panel.SetSourceAsync(stream);
+            }
         }
     }
 }
