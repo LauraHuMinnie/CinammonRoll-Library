@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CinammonRoll.Models;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -56,7 +57,12 @@ namespace CinammonRoll
             int episodeNum = episode.episodeNum;
             this.selectedSeries.currentEpisode = episodeNum;
             this.selectedSeries.UpdateSeriesData();
-            Frame.Navigate(typeof(Player), episode);
+
+            Process p = new Process();
+            p.EnableRaisingEvents = false;
+            p.StartInfo.FileName = episode.episodeFile.Path;
+            p.Start();
+            //Frame.Navigate(typeof(Player), episode);
         }
 
         private void SetWatchStatusPanel(SeriesState s)

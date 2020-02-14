@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <NavigationView x:Name="NavView" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" PaneTitle="CinnamonRoll" PaneDisplayMode="Top" AlwaysShowHeader="False" IsBackButtonVisible="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="1080" Width="1920">
+        <NavigationView x:Name="NavView" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" PaneTitle="CinnamonRoll" PaneDisplayMode="Top" AlwaysShowHeader="False" IsBackButtonVisible="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="auto" Width="auto">
             <NavigationView.Background>
                 <LinearGradientBrush EndPoint="0.5,0.1" StartPoint="0.5,1">
                     <GradientStop Color="#18c1b9" Offset="0"/>

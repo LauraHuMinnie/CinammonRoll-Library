@@ -9,9 +9,17 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel>
-        <TextBlock Text="Anime Library Directories" FontSize="30" Margin="20,20,0,0"/>
-        <ListView x:Name="DirectoryList" Margin="20,10,20,10" SelectionMode="Multiple" VerticalAlignment="Top" Height="800">
+    <Grid Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Anime Library Directories" FontSize="30" Margin="20,20,0,0" Height="auto" Grid.Row="0" Grid.Column="0"/>
+        <ListView x:Name="DirectoryList" Margin="20,10,20,10" SelectionMode="Multiple" VerticalAlignment="Top" Height="auto" Grid.Row="1" Grid.Column="0">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Library">
                     <StackPanel Background="#424242">
@@ -26,11 +34,11 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <StackPanel Orientation="Horizontal" Margin="20,10,0,0">
+        <StackPanel Orientation="Horizontal" Margin="20,10,0,0" Height="auto" Grid.Row="2" Grid.Column="0">
             <Button Content="Add directory" FontSize="18" Click="AddDirButton_Click"/>
             <Button Content="Remove selected" FontSize="18" Margin="20,0,0,0" Click="RemoveDirButton_Click"/>
             <TextBlock x:Name="StatusMessage" Text="Status message" FontSize="16" Margin="20,15,0,0"/>
             <ProgressRing x:Name="ProgressRing" Margin="20,0,0,0" Height="50" Width="50"/>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Page>

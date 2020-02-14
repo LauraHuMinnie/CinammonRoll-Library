@@ -79,6 +79,15 @@ namespace CinammonRoll.Models
                         }
                     }
                     Series s = new Series(folderName, filepaths, filenames, count, dir, data, folder);
+                    if (panel == null)
+                    {
+                        
+                        panel = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/placeholder.png"));
+                    }
+                    if (poster == null)
+                    {
+                        poster = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/placeholder.png"));
+                    }
                     s.setPanelFile(panel);
                     s.setPosterFile(poster);
                     this.series.Add(s);

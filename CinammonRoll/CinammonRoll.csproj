@@ -129,6 +129,7 @@
       <DependentUpon>ListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Anime.cs" />
+    <Compile Include="Models\AnimeAPI.cs" />
     <Compile Include="Models\Library.cs" />
     <Compile Include="Models\Reddit.cs" />
     <Compile Include="Models\RelayCommand.cs" />
@@ -175,6 +176,7 @@
     <Content Include="Assets\landofthelustrous_poster.jpg" />
     <Content Include="Assets\magnet.png" />
     <Content Include="Assets\perfectblue_poster.jpg" />
+    <Content Include="Assets\placeholder.png" />
     <Content Include="Assets\planetes_poster.jpg" />
     <Content Include="Assets\promare.png" />
     <Content Include="Assets\promare_poster.jpg" />
@@ -235,7 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.8</Version>
+      <Version>6.2.9</Version>
     </PackageReference>
     <PackageReference Include="VLC.MediaElement">
       <Version>3.1.0.1</Version>

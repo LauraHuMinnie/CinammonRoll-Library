@@ -9,32 +9,41 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Width="auto" Height="auto" HorizontalAlignment="Stretch">
         <Grid.Background>
             <ImageBrush ImageSource="Assets/background3.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
         <TextBlock x:Name="StatusMessage" Text="Status message" FontSize="20" Margin="15" Foreground="White"/>
-        <RelativePanel Margin="80">
-            <StackPanel x:Name="RedditPanel" Background="#E61a1a1a" Height="920" Width="850" Margin="0,0,20,0">
-                <TextBlock Text="Reddit" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
-                <ListView x:Name="RedditRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="800">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="data:Reddit">
-                            <StackPanel Background="#cc3bced9">
-                                <TextBlock Text="{x:Bind postTitle}" FontSize="20" Foreground="white" FontWeight="SemiBold" Margin="10,0,0,0" TextWrapping="WrapWholeWords"/>
-                                <Button x:Name="NyaaDownload" Content="View" Foreground="White" Background="#cc723ccf" Margin="10,20,0,0" Command="{Binding OpenThread}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="Margin" Value="1"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </StackPanel>
-            <StackPanel x:Name="NyaaPanel" RelativePanel.RightOf="RedditPanel" Background="#E61a1a1a" Width="890" Height="450">
+        <!--850 width-->
+        <StackPanel Grid.Row="0" Grid.Column="0" x:Name="RedditPanel" Background="#E61a1a1a" Height="920" Width="auto" Margin="10,10,20,10">
+            <TextBlock Text="Reddit" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
+            <ListView x:Name="RedditRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="800">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Reddit">
+                        <StackPanel Background="#cc3bced9">
+                            <TextBlock Text="{x:Bind postTitle}" FontSize="20" Foreground="white" FontWeight="SemiBold" Margin="10,0,0,0" TextWrapping="WrapWholeWords"/>
+                            <Button x:Name="NyaaDownload" Content="View" Foreground="White" Background="#cc723ccf" Margin="10,20,0,0" Command="{Binding OpenThread}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="1"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
+        <!-- 890 width-->
+        <RelativePanel Grid.Row="0" Grid.Column="1" Margin="10, 10, 10, 10" Width="auto" Height="auto">
+            <StackPanel x:Name="NyaaPanel" Background="#E61a1a1a" Width="auto" Height="450">
                 <TextBlock Text="Nyaa Torrents" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
                 <ListView x:Name="NyaaRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="355">
                     <ListView.ItemTemplate>
@@ -54,7 +63,8 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
             </StackPanel>
-            <StackPanel x:Name="HorribleSubsPanel" RelativePanel.RightOf="RedditPanel" RelativePanel.Below="NyaaPanel" Background="#E61a1a1a" Margin="0,20,0,0" Width="890" Height="450">
+            <!-- 890 width-->
+            <StackPanel x:Name="HorribleSubsPanel" RelativePanel.Below="NyaaPanel" Background="#E61a1a1a" Margin="0,20,0,0" Width="auto" Height="450">
                 <TextBlock Text="HorribleSubs" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
                 <ListView x:Name="HorribleRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="315">
                     <ListView.ItemTemplate>
