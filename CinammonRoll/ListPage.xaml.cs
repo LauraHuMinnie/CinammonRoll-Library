@@ -25,6 +25,9 @@ namespace CinammonRoll
 
     public sealed partial class ListPage : Page
     {
+        private readonly int ITEM_WIDTH = 200;
+        private readonly int ITEM_HEIGHT = 300;
+
         public ListPage()
         {
             this.InitializeComponent();
@@ -136,6 +139,20 @@ namespace CinammonRoll
             {
                 sender.Text = args.ChosenSuggestion.ToString();
             }
+        }
+
+        // TODO: Fix GridView resizing when window gets resized.
+        // Links:
+        // https://stackoverflow.com/questions/50967701/uwp-xaml-load-dynamic-columns-and-rows-to-gridview
+        // https://stackoverflow.com/questions/40565599/get-window-size
+        // https://stackoverflow.com/questions/41139535/gridview-item-dynamic-width-according-to-screen-size-in-uwp
+
+        private void onGridViewSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var columns = Math.Ceiling(ActualWidth/ITEM_WIDTH);
+            var rows = Math.Ceiling(ActualHeight / ITEM_HEIGHT);
+            ((ItemsWrapGrid)AnimeGrid.ItemsPanelRoot).ItemWidth = e.NewSize.Width / columns;
+            //((ItemsWrapGrid)AnimeGrid.ItemsPanelRoot).ItemHeight = e.NewSize.Height / rows;
         }
     }
 }

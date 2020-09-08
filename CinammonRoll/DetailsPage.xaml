@@ -13,11 +13,13 @@
         <StackPanel.Background>
             <ImageBrush x:Name="DetailsBackground" Stretch="UniformToFill"/>
         </StackPanel.Background>
-        <StackPanel Background="#F2222222" Width="600" Padding="10" Orientation="Vertical">
-            <Image x:Name="AnimePoster" Source="Assets/akira_poster.jpg" Width="300" Height="450" Margin="0,30,0,0" Stretch="UniformToFill"/>
-            <Border x:Name="WatchStatusPanel" Width="300" Background="Green">
-                <TextBlock x:Name="WatchStatusText" Text="Complete" FontSize="30" HorizontalAlignment="Center" Foreground="White"/>
-            </Border>
+        <StackPanel Background="#F2222222" Width="500" Height="Auto" Padding="10" Orientation="Vertical" VerticalAlignment="Stretch">
+            <StackPanel Margin="80,30,80,0" Width="auto" HorizontalAlignment="Center">
+                <Image x:Name="AnimePoster" Source="Assets/akira_poster.jpg" Width="230" Height="330"  HorizontalAlignment="Center" Stretch="UniformToFill"/>
+                <Border x:Name="WatchStatusPanel" Background="Green" HorizontalAlignment="Stretch">
+                    <TextBlock x:Name="WatchStatusText" Text="Complete" FontSize="30" HorizontalAlignment="Center" Foreground="White"/>
+                </Border>
+            </StackPanel>
             <TextBlock x:Name="AnimeTitle" Text="Akira" FontSize="35" Foreground="White" TextWrapping="WrapWholeWords" Margin="10,10,0,0"/>
             <TextBlock x:Name="AnimeDescription" Text="Description of Akira" FontSize="28" Foreground="White" TextWrapping="WrapWholeWords" Margin="10,10,0,0"/>
             <StackPanel VerticalAlignment="Bottom" Margin="0,10,0,0">
@@ -44,6 +46,6 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </StackPanel>
-
+        <ProgressBar x:Name="EpisodeProgressBar" Width="Auto" HorizontalAlignment="Stretch" Margin="10,10,10,10" IsIndeterminate="True"/>
     </StackPanel>
 </Page>

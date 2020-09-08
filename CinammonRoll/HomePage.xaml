@@ -43,7 +43,7 @@
         </StackPanel>
         <!-- 890 width-->
         <RelativePanel Grid.Row="0" Grid.Column="1" Margin="10, 10, 10, 10" Width="auto" Height="auto">
-            <StackPanel x:Name="NyaaPanel" Background="#E61a1a1a" Width="auto" Height="450">
+            <StackPanel x:Name="NyaaPanel" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Background="#E61a1a1a" Width="auto" Height="450">
                 <TextBlock Text="Nyaa Torrents" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
                 <ListView x:Name="NyaaRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="355">
                     <ListView.ItemTemplate>
@@ -64,7 +64,7 @@
                 </ListView>
             </StackPanel>
             <!-- 890 width-->
-            <StackPanel x:Name="HorribleSubsPanel" RelativePanel.Below="NyaaPanel" Background="#E61a1a1a" Margin="0,20,0,0" Width="auto" Height="450">
+            <StackPanel x:Name="HorribleSubsPanel" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="NyaaPanel" Background="#E61a1a1a" Margin="0,20,0,0" Width="auto" Height="450">
                 <TextBlock Text="HorribleSubs" FontWeight="ExtraBold" FontSize="35" Foreground="White" Margin="20,20,0,0"/>
                 <ListView x:Name="HorribleRssFeed" Margin="20,10,20,10" VerticalAlignment="Top" Height="315">
                     <ListView.ItemTemplate>

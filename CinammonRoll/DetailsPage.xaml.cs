@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CinammonRoll.Models;
 using System.Diagnostics;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -37,6 +38,7 @@ namespace CinammonRoll
         public DetailsPage()
         {
             this.InitializeComponent();
+            this.EpisodeProgressBar.Visibility = Visibility.Collapsed;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -51,17 +53,37 @@ namespace CinammonRoll
             SetWatchStatusPanel(s.seriesWatchState);
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Episode episode = (Episode)e.ClickedItem;
             int episodeNum = episode.episodeNum;
             this.selectedSeries.currentEpisode = episodeNum;
             this.selectedSeries.UpdateSeriesData();
 
-            Process p = new Process();
+            /*Process p = new Process();
             p.EnableRaisingEvents = false;
             p.StartInfo.FileName = episode.episodeFile.Path;
-            p.Start();
+            p.Start();*/
+            var promptOptions = new Windows.System.LauncherOptions()
+            {
+                DisplayApplicationPicker = true
+            };
+            var success = await Windows.System.Launcher.LaunchFileAsync(episode.episodeFile, promptOptions);
+            EpisodeProgressBar.Visibility = Visibility.Visible;
+            if (success)
+            {
+                EpisodeProgressBar.Visibility = Visibility.Collapsed;
+            } else
+            {
+                EpisodeProgressBar.Visibility = Visibility.Collapsed;
+                var messageDialog = new MessageDialog("Failed to load Application picker for the episode file " + episode.episodeTitle);
+                messageDialog.Commands.Add(new UICommand(
+                    "Close",
+                    new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                messageDialog.DefaultCommandIndex = 0;
+                messageDialog.CancelCommandIndex = 1;
+                await messageDialog.ShowAsync();
+            }
             //Frame.Navigate(typeof(Player), episode);
         }
 
@@ -110,6 +132,11 @@ namespace CinammonRoll
             this.selectedSeries.setWatchState(state);
             this.selectedSeries.UpdateSeriesData();
             this.SetWatchStatusPanel(state);
+        }
+
+        private void CommandInvokedHandler(IUICommand command)
+        {
+
         }
     }
 }

@@ -8,19 +8,29 @@
     xmlns:data="using:CinammonRoll.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <StackPanel>
-        <StackPanel x:Name="ListHeader" Margin="100,40,0,0" Orientation="Horizontal">
+    <Grid x:Name="ListGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/background.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" x:Name="ListHeader" Margin="100,40,100,0" Width="Auto" Height="Auto" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock x:Name="HeaderText" Text="Completed" Foreground="White" FontWeight="Bold" FontSize="40" SelectionChanged="HeaderText_SelectionChanged" Width="220"/>
-            <Button Content="All" FontSize="20" Background="#303030" Width="150" Margin="40,0,0,0" Click="All_Click" Foreground="White"/>
+            <Button Content="All" FontSize="20" Background="#303030" Width="150" Margin="20,0,0,0" Click="All_Click" Foreground="White"/>
             <Button Content="Completed" FontSize="20" Background="#303030" Width="150" Margin="20,0,0,0" Click="Completed_Click" Foreground="White"/>
             <Button Content="Planning" FontSize="20" Background="#303030" Width="150" Margin="20,0,0,0" Click="Planning_Click" Foreground="White"/>
             <AutoSuggestBox x:Name="SearchBar" PlaceholderText="Search anime..." QueryIcon="Find" Width="500" HorizontalAlignment="Center" Margin="10,10,0,0" TextChanged="AnimeSearch_TextChange"
                             QuerySubmitted="AnimeSearch_QuerySubmitted" SuggestionChosen="AnimeSearch_SuggestionChosen"/>
         </StackPanel>
-        <Canvas x:Name="ListCanvas" RelativePanel.Below="ListHeader" Width="1700" VerticalAlignment="Top" Height="950">
-            <ProgressRing x:Name="ListRing" Canvas.Left="750" Canvas.Top="375" Width="150" Height="150"/>
-            <TextBlock x:Name="ImportLibraryNotice" Canvas.Left="620" Canvas.Top="420" Width="560" Height="50" FontSize="32" FontWeight="SemiBold" Foreground="White" Text="Import anime library through settings"/>
-            <Grid x:Name="Grid" RelativePanel.Below="ListHeader" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="950">
+        <RelativePanel Grid.Row="1" Grid.Column="0" x:Name="ListCanvas" HorizontalAlignment="Center" Width="Auto" Margin="20,20,20,20">
+            <ProgressRing x:Name="ListRing" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Width="150" Height="150"/>
+            <TextBlock x:Name="ImportLibraryNotice" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"  Width="560" Height="50" FontSize="32" FontWeight="SemiBold" Foreground="White" Text="Import anime library through settings"/>
+            <Grid x:Name="Grid" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True">
                 <Grid.Resources>
                     <Style TargetType="Rectangle">
                         <Setter Property="Height" Value="320"/>
@@ -38,7 +48,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <GridView x:Name="AnimeGrid" Grid.ColumnSpan="3" Width="1700" Grid.RowSpan="3" VerticalAlignment="Stretch" Margin="0,15,0,100" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                <GridView x:Name="AnimeGrid" Grid.ColumnSpan="3" Width="1700" Height="Auto" Grid.RowSpan="3" VerticalAlignment="Stretch" Margin="0,15,0,30" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" SizeChanged="onGridViewSizeChanged">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Series">
                             <Canvas Width="200" Height="300">
@@ -56,9 +66,6 @@
             </GridView.ItemsPanel>-->
                 </GridView>
             </Grid>
-        </Canvas>
-        <StackPanel.Background>
-            <ImageBrush ImageSource="Assets/background.jpg" Stretch="UniformToFill"/>
-        </StackPanel.Background>
-    </StackPanel>
+        </RelativePanel>
+    </Grid>
 </Page>

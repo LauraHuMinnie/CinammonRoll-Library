@@ -13,46 +13,59 @@
         <Grid.Background>
             <ImageBrush ImageSource="Assets/background4.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <TextBlock Text="Queue" FontSize="40" Foreground="white" FontWeight="Bold" Margin="75,33,1646,934" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <!--<Canvas Width="960" Height="230">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="QueueColumn" Grid.Row="0" Grid.Column="0" Margin="75,100,10,60" Orientation="Vertical">
+            <TextBlock Text="Queue" FontSize="40" Foreground="white" FontWeight="Bold" Margin="75,33,1646,934" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <!--<Canvas Width="960" Height="230">
             <Image Source="Assets/killlakill.jpg" Width="960" Height="230" Stretch="UniformToFill"/>
             <TextBlock Canvas.Left="45" Canvas.Top="160" FontSize="35" FontWeight="ExtraBold" Text="Kill La Kill" Foreground="White"/>
             <Button Content="Resume" FontWeight="SemiBold" Background="#43cc7c" Width="100" Height="35" Canvas.Left="700" Canvas.Top="170"/>
             <Button Content="Drop" FontWeight="SemiBold" Background="#f74d4d" Width="100" Height="35" Canvas.Left="805" Canvas.Top="170"/>
-        </Canvas>-->
-        <ListView x:Name="SeriesQueue"  Width="960" Canvas.Left="10" Canvas.Top="40" Margin="0,100,830,60">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:SeriesQueue">
-                    <Canvas Width="960" Height="230">
-                        <Image Source="{x:Bind panel}" Width="960" Height="230" Stretch="UniformToFill"/>
-                        <TextBlock Canvas.Left="45" Canvas.Top="160" FontSize="35" FontWeight="ExtraBold" Text="{x:Bind title}" Foreground="White"/>
-                        <Button Content="Resume" FontWeight="SemiBold" FontSize="18" Background="#43cc7c" Width="100" Height="40" Canvas.Left="700" Canvas.Top="170"/>
-                        <Button Content="Drop" FontWeight="SemiBold" FontSize="18" Background="#f74d4d" Width="100" Height="40" Canvas.Left="805" Canvas.Top="170"/>
-                    </Canvas>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="Margin" Value="5"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
-        <StackPanel Width="820" Margin="1100,0,0,0">
+            </Canvas>-->
+            <ListView x:Name="SeriesQueue"  Width="960" Canvas.Left="10" Canvas.Top="40" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:SeriesQueue">
+                        <Canvas Width="960" Height="230">
+                            <Image Source="{x:Bind panel}" Width="960" Height="230" Stretch="UniformToFill"/>
+                            <TextBlock Canvas.Left="45" Canvas.Top="160" FontSize="35" FontWeight="ExtraBold" Text="{x:Bind title}" Foreground="White"/>
+                            <Button Content="Resume" FontWeight="SemiBold" FontSize="18" Background="#43cc7c" Width="100" Height="40" Canvas.Left="700" Canvas.Top="170"/>
+                            <Button Content="Drop" FontWeight="SemiBold" FontSize="18" Background="#f74d4d" Width="100" Height="40" Canvas.Left="805" Canvas.Top="170"/>
+                        </Canvas>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="5"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
+        
+        <StackPanel x:Name="DetailsColumn" Grid.Row="0" Grid.Column="1" Width="500" Margin="5,0,0,0">
             <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.2,1" StartPoint="0,1">
+                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0,1">
                     <GradientStop Color="#00303030" Offset="0"/>
                     <GradientStop Color="#E61a1a1a" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Image x:Name="DisplayPoster" Source="Assets/landofthelustrous_poster.jpg" Width="320" Height="480" Stretch="UniformToFill" Margin="150,60,0,0"/>
-            <Viewbox Width="700" Height="55" Margin="150,20,0,0">
-                <RatingControl x:Name="UserRating" HorizontalAlignment="Center" IsReadOnly="True" />
-            </Viewbox>
-            <TextBlock x:Name="DisplayTitle" Text="Houseki no Kuni" Width="500" FontSize="40" FontWeight="SemiBold" Foreground="White" Margin="150,0,0,0" TextAlignment="Center"/>
-            <TextBlock x:Name="DisplayDescription" Width="520" FontSize="20" TextWrapping="WrapWholeWords" FontWeight="Normal" Foreground="White" Margin="150,10,0,0" TextAlignment="Left" Text="In the mysterious future, crystalline organisms called Gems inhabit a world that has been destroyed by six meteors. Each Gem is assigned a role in order to fight against the Lunarians, a species who attacks them in order to shatter their bodies and use them as decorations."/>
-            <Button Content="View Details" Background="#3b3b3b" Foreground="White" FontSize="30" HorizontalAlignment="Stretch" Margin="210,50,50,0" Height="70"/>
-            <Button Content="Resume" Background="#43cc7c" Foreground="White" FontSize="30" HorizontalAlignment="Stretch" Margin="210,20,50,0" Height="70" Click="VideoButton_Click" />
+            <StackPanel Margin="100,30,80,0" Width="Auto" HorizontalAlignment="Center">
+                <Image x:Name="DisplayPoster" Source="Assets/landofthelustrous_poster.jpg" Width="230" Height="330" Stretch="UniformToFill"/>
+                <Viewbox Width="Auto" Height="55">
+                    <RatingControl x:Name="UserRating" HorizontalAlignment="Center" IsReadOnly="True" />
+                </Viewbox>
+            </StackPanel>
+            
+            <TextBlock x:Name="DisplayTitle" Text="Houseki no Kuni" Width="Auto" FontSize="40" FontWeight="SemiBold" Foreground="White" Margin="40,0,10,0" TextAlignment="Center"/>
+            <TextBlock x:Name="DisplayDescription" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" FontWeight="Normal" Foreground="White" Margin="80,10,20,0" TextAlignment="Left" Text="In the mysterious future, crystalline organisms called Gems inhabit a world that has been destroyed by six meteors. Each Gem is assigned a role in order to fight against the Lunarians, a species who attacks them in order to shatter their bodies and use them as decorations."/>
+            <Button Content="View Details" Background="#3b3b3b" Foreground="White" FontSize="30" HorizontalAlignment="Stretch" Margin="80,20,20,0" Height="60" Click="ViewDetailsButton_Click"/>
+            <Button Content="Resume" Background="#43cc7c" Foreground="White" FontSize="30" HorizontalAlignment="Stretch" Margin="80,15,20,0" Height="60" Click="VideoButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

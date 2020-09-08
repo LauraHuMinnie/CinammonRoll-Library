@@ -286,6 +286,11 @@ namespace CinammonRoll.Models
             return eps;
         }
 
+        public Episode getCurrentEpisode()
+        {
+            return this.episodes[this.currentEpisode - 1];
+        }
+
         public List<string> getEpisodeNames()
         {
             return new List<string>(mediaFileNames);
